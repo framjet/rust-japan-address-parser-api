@@ -1,0 +1,25 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+# - "first_rules.yml"
+# - "second_rules.yml"
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'japanese-address-parser'
+    static_configs:
+      - targets: ['japanese-address-parser:3000']
+    metrics_path: /metrics
+    scrape_interval: 5s
+    scrape_timeout: 10s
+
+  - job_name: 'japanese-address-parser-health'
+    static_configs:
+      - targets: ['japanese-address-parser:3000']
+    metrics_path: /health
+    scrape_interval: 30s
